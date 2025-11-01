@@ -111,7 +111,7 @@ Representa as categorias de transações (ex: Alimentação, Transporte, Salári
 
 ```prisma
 model Category {
-  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  id        String          
   name      String
   color     String          // Cor hexadecimal (#FF5733)
   type      transactionType // INCOME ou EXPENSE
@@ -142,7 +142,7 @@ Representa uma transação financeira do usuário.
 
 ```prisma
 model Transaction {
-  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  id          String          ***
   description String
   amount      Float           // Valor da transação
   date        DateTime        @default(now())
@@ -255,12 +255,12 @@ PORT=3001
 NODE_ENV=dev
 
 # Banco de Dados
-DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/devbills
+DATABASE_URL=
 
 # Firebase
 FIREBASE_PROJECT_ID=seu-projeto-id
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-FIREBASE_CLIENT_EMAIL=firebase-adminsdk@seu-projeto.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY=
+FIREBASE_CLIENT_EMAIL=
 ```
 
 ### Validação de Variáveis (`config/env.ts`)
@@ -320,7 +320,7 @@ Authorization: Bearer <token>
 ```json
 [
   {
-    "id": "507f1f77bcf86cd799439011",
+    "id": "***",
     "name": "Alimentação",
     "color": "#FF5733",
     "type": "EXPENSE",
@@ -328,7 +328,7 @@ Authorization: Bearer <token>
     "updatedAt": "2025-01-15T10:00:00Z"
   },
   {
-    "id": "507f1f77bcf86cd799439012",
+    "id": "***",
     "name": "Salário",
     "color": "#33FF57",
     "type": "INCOME",
@@ -363,7 +363,7 @@ Content-Type: application/json
   "description": "Compra no supermercado",
   "amount": 150.50,
   "date": "2025-10-20",
-  "categoryId": "507f1f77bcf86cd799439011",
+  "categoryId": "***",
   "type": "EXPENSE"
 }
 ```
@@ -371,15 +371,15 @@ Content-Type: application/json
 **Resposta (201):**
 ```json
 {
-  "id": "507f1f77bcf86cd799439020",
+  "id": "***",
   "description": "Compra no supermercado",
   "amount": 150.50,
   "date": "2025-10-20T00:00:00Z",
   "type": "EXPENSE",
-  "userId": "firebase-user-id-123",
-  "categoryId": "507f1f77bcf86cd799439011",
+  "userId": "***",
+  "categoryId": "***",
   "categoty": {
-    "id": "507f1f77bcf86cd799439011",
+    "id": "***",
     "name": "Alimentação",
     "color": "#FF5733",
     "type": "EXPENSE"
@@ -397,7 +397,7 @@ Content-Type: application/json
 
 #### 2. Listar Transações (com filtros)
 ```http
-GET /api/transactions?month=10&year=2025&type=EXPENSE&categoryId=507f1f77bcf86cd799439011
+GET /api/transactions?month=10&year=2025&type=EXPENSE&categoryId=***
 ```
 
 **Headers:**
@@ -415,7 +415,7 @@ Authorization: Bearer <token>
 ```json
 [
   {
-    "id": "507f1f77bcf86cd799439020",
+    "id": "***",
     "description": "Compra no supermercado",
     "amount": 150.50,
     "date": "2025-10-20T00:00:00Z",
@@ -455,21 +455,21 @@ Authorization: Bearer <token>
   "totalBalance": 2649.25,
   "expensesByCategory": [
     {
-      "categoryId": "507f1f77bcf86cd799439011",
+      "categoryId": "***",
       "categoryName": "Alimentação",
       "categoryColor": "#FF5733",
       "amount": 450.50,
       "percentage": 52.95
     },
     {
-      "categoryId": "507f1f77bcf86cd799439012",
+      "categoryId": "***",
       "categoryName": "Transporte",
       "categoryColor": "#33A8FF",
       "amount": 200.00,
       "percentage": 23.51
     },
     {
-      "categoryId": "507f1f77bcf86cd799439013",
+      "categoryId": "***",
       "categoryName": "Lazer",
       "categoryColor": "#FFBA33",
       "amount": 200.25,
@@ -1029,11 +1029,11 @@ Criar arquivo `.env` na raiz:
 ```env
 PORT=3001
 NODE_ENV=dev
-DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/devbills
+DATABASE_URL=***
 
 FIREBASE_PROJECT_ID=seu-projeto-id
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nSUA_CHAVE_AQUI\n-----END PRIVATE KEY-----\n"
-FIREBASE_CLIENT_EMAIL=firebase-adminsdk@seu-projeto.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY=**
+FIREBASE_CLIENT_EMAIL=***
 ```
 
 **⚠️ IMPORTANTE:**

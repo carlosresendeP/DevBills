@@ -11,10 +11,10 @@ npm install
 ```env
 PORT=3001
 NODE_ENV=dev
-DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/devbills
+DATABASE_URL=
 FIREBASE_PROJECT_ID=seu-projeto
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
-FIREBASE_CLIENT_EMAIL=firebase-adminsdk@....iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY=
+FIREBASE_CLIENT_EMAIL=
 ```
 
 ### 3. Configurar Prisma
@@ -34,7 +34,7 @@ npm run dev
 
 ### Base URL
 ```
-http://localhost:3001/api
+
 ```
 
 ### Health Check
@@ -49,7 +49,7 @@ GET /api/health
 Todas as rotas (exceto `/health`) requerem token Firebase:
 
 ```http
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
+Authorization: Bearer ***
 ```
 
 ---
@@ -66,7 +66,7 @@ Authorization: Bearer <token>
 ```json
 [
   {
-    "id": "507f1f77bcf86cd799439011",
+    "id": "",
     "name": "Alimentação",
     "color": "#FF5733",
     "type": "EXPENSE"
@@ -88,7 +88,7 @@ Content-Type: application/json
   "description": "Compra no supermercado",
   "amount": 150.50,
   "date": "2025-10-20",
-  "categoryId": "507f1f77bcf86cd799439011",
+  "categoryId": "**",
   "type": "EXPENSE"
 }
 ```
