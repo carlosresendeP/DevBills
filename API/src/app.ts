@@ -4,6 +4,7 @@ import Fastify from "fastify";
 import type { FastifyInstance } from "fastify";
 import routes from "./Routes";
 import { env } from "./config/env";
+import cors from '@fastify/cors'
 
 //criar uma variável do tipo FastifyInstance e o logger ativado
 //o logger é uma funcionalidade do fastify que permite registrar logs de requisições e respostas
@@ -14,6 +15,8 @@ const app: FastifyInstance = Fastify({
         level: env.NODE_ENV === 'dev' ? 'info': 'error', // Define o nível de log com base no ambiente
     },
 });
+
+app.register(cors)
 
 //registrar as rotas no servidor com o prefixo '/api'
 app.register(routes, {prefix: '/api'});

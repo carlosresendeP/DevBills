@@ -7,10 +7,11 @@ import {createTransactionSchema } from "../../schemas/transaction.schema"
 
 const createTrasaction = async(request: FastifyRequest, reply:FastifyReply): Promise<void> =>{
 
-    const userId = "ahousfhufhuo"
+    const userId = request.userId;
 
     if (!userId){
         reply.status(401).send({error: 'usuario nao autenticado'})
+        return;
     }
 
     //validacao

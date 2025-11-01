@@ -3,9 +3,12 @@ import app from "./app";
 import { prismaConnect } from "./config/prima";
 import { inializeGlobalCategories } from "./services/globalCategories.service";
 import { env } from "./config/env";
+import initalizeFirebaseAdmin from "./config/firebase";
 
 
 const PORT = env.PORT;
+
+initalizeFirebaseAdmin()
 
 const startServer = async () => {
   try {
@@ -22,5 +25,6 @@ const startServer = async () => {
     console.error("❌ Falha ao iniciar o servidor:", error);
   }
 };
+
 
 startServer();

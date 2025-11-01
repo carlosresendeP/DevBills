@@ -19,7 +19,7 @@ export const createTransactionSchema = z.object({
   }), //type
 });
 
-export type CreateTransactionQuery = z.infer<typeof createTransactionSchema>; //cria um tipo TypeScript a partir do schema Zod
+
 
 /*
 e como se tivesse assim :
@@ -46,17 +46,28 @@ export const getTransactionSchema = z.object({
   categoryId: z.string().refine(isValidObjectId, { message: "Categoria inválido" }).optional(),
 });
 
-export type GetTransactionQuery = z.infer<typeof getTransactionSchema>; //cria um tipo TypeScript a partir do schema Zod
 
 export const getTransactionSummarySchema = z.object({
   month: z.string({ message: "O mes é obrigatório" }),
   year: z.string({ message: "O ano é obrigatório" }),
 });
-export type getTransactionSummaryQuery = z.infer<typeof getTransactionSummarySchema>;
+
+
+
+export const getHistoricalTransactionSchema = z.object({
+  month: z.coerce.number().min(1).max(12),
+  year: z.coerce.number().min(2000).max(2100),
+  months: z.coerce.number().min(1).max(12).optional(),
+});
+
 
 //delete
 export const deleteTransactionSchema = z.object({
   id: z.string().refine(isValidObjectId, { message: "Id inválido" }),
 });
 
+export type CreateTransactionQuery = z.infer<typeof createTransactionSchema>; //cria um tipo TypeScript a partir do schema Zod
+export type GetTransactionQuery = z.infer<typeof getTransactionSchema>; //cria um tipo TypeScript a partir do schema Zod
 export type DeleteTransactionParams = z.infer<typeof deleteTransactionSchema>
+export type getTransactionSummaryQuery = z.infer<typeof getTransactionSummarySchema>;
+export type GetHistoricalTransactionQuery = z.infer<typeof getHistoricalTransactionSchema>;

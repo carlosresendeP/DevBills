@@ -11,10 +11,11 @@ export const getTransactions = async (
   request: FastifyRequest<{ Querystring: GetTransactionQuery }>,
   reply: FastifyReply,
 ): Promise<void> => {
-  const userId = "ahousfhufhuo";
+  const userId = request.userId;
 
   if (!userId) {
     reply.status(401).send({ error: "usuario nao autenticado" });
+    return;
   }
 
   const { month, categoryId, type, year } = request.query;

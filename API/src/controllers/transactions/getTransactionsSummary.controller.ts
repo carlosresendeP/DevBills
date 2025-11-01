@@ -13,7 +13,7 @@ export const getTransactionsSummary = async (
   request: FastifyRequest<{ Querystring: getTransactionSummaryQuery }>,
   reply: FastifyReply,
 ): Promise<void> => {
-  const userId = "ahousfhufhuo";
+  const userId = request.userId;
 
   if (!userId) {
     reply.status(401).send({ error: "usuario nao autenticado" });
@@ -55,8 +55,8 @@ export const getTransactionsSummary = async (
         const existing = groupedExpenses.get(transaction.categoryId) ?? {
           //se não existir, cria um novo objeto (??) =>
           categoryId: transaction.categoryId,
-          CategoryName: transaction.categoty.name,
-          CategoryColor: transaction.categoty.color,
+          categoryName: transaction.categoty.name,
+          categoryColor: transaction.categoty.color,
           amount: 0,
           percentage: 0,
         };

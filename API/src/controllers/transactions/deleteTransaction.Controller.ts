@@ -8,7 +8,7 @@ export const deleteTransaction = async (
 ): Promise<void> => {
 
     //validção do usuario
-  const userId = "ahousfhufhuo";
+  const userId = request.userId;
   const { id } = request.params;
 
   if (!userId) {
