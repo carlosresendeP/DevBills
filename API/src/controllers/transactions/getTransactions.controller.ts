@@ -43,7 +43,7 @@ export const getTransactions = async (
       where: filters,
       orderBy: { date: "desc" },
       include: {
-        categoty: {
+        category: {
           select: {
             color: true,
             name: true,

@@ -50,7 +50,7 @@ const createTrasaction = async(request: FastifyRequest, reply:FastifyReply): Pro
 
             },
             include:{
-                categoty: true, // Inclui a categoria relacionada
+                category: true, // Inclui a categoria relacionada
             },
         });
 

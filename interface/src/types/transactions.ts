@@ -1,4 +1,4 @@
-import type { Category, CategotySummary } from "./category";
+import type { Category, CategorySummary } from "./category";
 
 export const TransactionType = {
     INCOME: "INCOME",
@@ -13,6 +13,14 @@ export interface TransactionFilter{
     type?:TransactionType;
 }
 
+export interface createTrasactionDTO{
+    description:string;
+    amount:number;
+    date:string | Date;
+    categoryId: string;
+    type:TransactionType;
+}
+
 export interface Transaction{
     id:string;
     description:string;
@@ -22,7 +30,7 @@ export interface Transaction{
     type:TransactionType;
     createdAt:string | Date;
     updatedAt:string | Date;
-    categoty: Category;
+    category: Category;
     userId:string;
 }
 
@@ -31,7 +39,7 @@ export interface TrasactionSummary{
     totalExpenses: number;
     totalIncomes: number;
     totalBalance: number;
-    expensesByCategory: CategotySummary[];
+    expensesByCategory: CategorySummary[];
 }
 
 

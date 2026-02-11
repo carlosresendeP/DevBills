@@ -1,13 +1,13 @@
 import type { TransactionType } from "./transactions";
 
 export interface Category {
-    id?:string;
+    id:string;
     name:string;
     color:string;
     type:TransactionType;
 }
 
-export interface CategotySummary {
+export interface CategorySummary {
     categoryId: string,
     categoryName: string,
     categoryColor: string,

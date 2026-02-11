@@ -44,7 +44,7 @@ model Transaction {
 
   //Relacionamento
   categoryId String @db.ObjectId // ID da categoria associada
-  categoty Category @relation(fields: [categoryId], references: [id]) // Relacionamento com a categoria
+  category Category @relation(fields: [categoryId], references: [id]) // Relacionamento com a categoria
 
   @@index([userId, date]) // Índice para consultas por usuário e data
   @@index([userId, date, categoryId]) // Índice para consultas por usuário, data e categoria

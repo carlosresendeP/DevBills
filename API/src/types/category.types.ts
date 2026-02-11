@@ -1,4 +1,4 @@
-export interface CategotySummary {
+export interface CategorySummary {
   categoryId: string;
   categoryName: string;
   categoryColor: string;

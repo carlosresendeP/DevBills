@@ -4,7 +4,7 @@ import utc from "dayjs/plugin/utc";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import prisma from "../../config/prima";
 import type { getTransactionSummaryQuery } from "../../schemas/transaction.schema";
-import type { CategotySummary } from "../../types/category.types";
+import type { CategorySummary } from "../../types/category.types";
 import type{ TrasactionSummary } from "../../types/transactions.types";
 
 dayjs.extend(utc); //plugin para manipular datas em UTC
@@ -35,7 +35,7 @@ export const getTransactionsSummary = async (
         date: { gte: startDate, lte: endDate },
       },
       include: {
-        categoty: true,
+        category: true,
       },
     });
     //ordena por data, do mais recente para o mais antigo
@@ -43,7 +43,7 @@ export const getTransactionsSummary = async (
     // Agrupar despesas por categoria
     let totalIncomes = 0;
     let totalExpenses = 0;
-    const groupedExpenses = new Map<string, CategotySummary>(); // Map para agrupar despesas por categoria
+    const groupedExpenses = new Map<string, CategorySummary>(); // Map para agrupar despesas por categoria
 
     for (const transaction of transactions) {
       //quando for para cada transação
@@ -55,8 +55,8 @@ export const getTransactionsSummary = async (
         const existing = groupedExpenses.get(transaction.categoryId) ?? {
           //se não existir, cria um novo objeto (??) =>
           categoryId: transaction.categoryId,
-          categoryName: transaction.categoty.name,
-          categoryColor: transaction.categoty.color,
+          categoryName: transaction.category.name,
+          categoryColor: transaction.category.color,
           amount: 0,
           percentage: 0,
         };

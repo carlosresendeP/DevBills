@@ -16,7 +16,10 @@ const app: FastifyInstance = Fastify({
     },
 });
 
-app.register(cors)
+app.register(cors, {
+    origin: true, // Permitir todas as origens
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Métodos HTTP permitidos
+})
 
 //registrar as rotas no servidor com o prefixo '/api'
 app.register(routes, {prefix: '/api'});
