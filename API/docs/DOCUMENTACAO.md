@@ -1089,7 +1089,7 @@ npm install
 **Exemplo de connection string:**
 
 ```
-mongodb+srv://ContaZero:senha123@cluster0.xxxxx.mongodb.net/ContaZero
+mongodb+srv:....
 ```
 
 ---

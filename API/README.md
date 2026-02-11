@@ -131,7 +131,7 @@ PORT=3001
 NODE_ENV=dev
 
 # MongoDB
-DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/ContaZero
+DATABASE_URL=mongodb+srv....
 
 # Firebase
 FIREBASE_PROJECT_ID=seu-projeto-id
@@ -223,7 +223,7 @@ Content-Type: application/json
 
 ```http
 GET /api/transactions/summary?month=10&year=2025
-Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
+Authorization: Bearer ...
 ```
 
 **Resposta:**
