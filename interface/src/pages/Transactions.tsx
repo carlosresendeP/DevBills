@@ -77,7 +77,7 @@ const Transactions = () => {
   };
 
   return (
-    <div className="container-app py-6">
+    <div className="container-app py-6 px-5">
       <div className="flex flex-col md:flex-row justify-between items-start lg:items-center mb-6">
         <h1 className="text-2xl font-bold mb-4 md:mb-0">Transações</h1>
         <Link

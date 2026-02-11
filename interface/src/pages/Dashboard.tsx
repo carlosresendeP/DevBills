@@ -72,7 +72,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container-app py-6">
+    <div className="container-app py-6 px-5">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <h1 className="text-2xl font-bold mb-4 md:mb-0">Dashboard</h1>
         <MonthYearSelect
@@ -120,7 +120,7 @@ const Dashboard = () => {
       </div>
 
       {/*Graficos*/}
-      <div className="grid grid-cols-2 lg:grid-cols-2 gap-6 mb-6 mt-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-6 mt-3">
         {/*1*/}
         <Card
           icon={<TrendingUp size={20} className="text-primary-500" />}

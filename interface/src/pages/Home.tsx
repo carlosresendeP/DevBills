@@ -40,7 +40,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-gray-950 min-h-screen">
+    <div className="bg-gray-950 min-h-screen px-5">
       <div className="container-app">
         {/*hero section*/}
         <section className="py-12 md:py-20">
@@ -87,7 +87,7 @@ const Home = () => {
         </section>
 
         <section className="py-12 md:py-20">
-          <div className="bg-gray-900 p8 md:p-12 rounded-xl text-center border border-gray-700">
+          <div className="bg-gray-900 p-8 md:p-12 rounded-xl text-center border border-gray-700">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 ">Pronto para organizar suas finanças?</h2>
             <p className="text-white text-opacity-90 max-w-2xl mx-auto mb-8">
               Comece a usar o DevBills hoje mesmo e tenha o controle total sobre seu dinheiro. É
