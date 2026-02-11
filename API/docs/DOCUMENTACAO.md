@@ -1,6 +1,7 @@
-# 📚 Documentação Completa - DevBills API
+# 📚 Documentação Completa - ContaZero API
 
 ## 📋 Índice
+
 1. [Visão Geral](#visão-geral)
 2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
 3. [Estrutura do Projeto](#estrutura-do-projeto)
@@ -18,9 +19,10 @@
 
 ## 🎯 Visão Geral
 
-A **DevBills API** é uma aplicação backend desenvolvida em **TypeScript** com **Fastify** para gerenciamento de transações financeiras pessoais. A API permite que usuários autenticados criem, listem, filtrem e excluam transações de receitas e despesas, além de obter resumos financeiros e históricos.
+A **ContaZero API** é uma aplicação backend desenvolvida em **TypeScript** com **Fastify** para gerenciamento de transações financeiras pessoais. A API permite que usuários autenticados criem, listem, filtrem e excluam transações de receitas e despesas, além de obter resumos financeiros e históricos.
 
 ### Principais Funcionalidades:
+
 - ✅ Autenticação de usuários via Firebase Authentication
 - ✅ Criação de transações (receitas e despesas)
 - ✅ Listagem de transações com filtros avançados
@@ -34,6 +36,7 @@ A **DevBills API** é uma aplicação backend desenvolvida em **TypeScript** com
 ## 🛠️ Tecnologias Utilizadas
 
 ### Backend
+
 - **Node.js** - Ambiente de execução JavaScript
 - **TypeScript** - Superset do JavaScript com tipagem estática
 - **Fastify** - Framework web rápido e eficiente
@@ -41,18 +44,22 @@ A **DevBills API** é uma aplicação backend desenvolvida em **TypeScript** com
 - **MongoDB** - Banco de dados NoSQL
 
 ### Autenticação
+
 - **Firebase Admin SDK** - Autenticação e verificação de tokens
 
 ### Validação
+
 - **Zod** - Validação de schemas e tipos
 - **zod-to-json-schema** - Conversão de schemas Zod para JSON Schema
 
 ### Utilitários
+
 - **Day.js** - Manipulação de datas
 - **dotenv** - Gerenciamento de variáveis de ambiente
 - **CORS** - Controle de acesso entre origens
 
 ### Desenvolvimento
+
 - **TSX** - Execução de TypeScript em modo watch
 - **Biome** - Linter e formatador de código
 
@@ -107,24 +114,26 @@ API/
 ### Modelos de Dados:
 
 #### 1. **Category** (Categoria)
+
 Representa as categorias de transações (ex: Alimentação, Transporte, Salário).
 
 ```prisma
 model Category {
-  id        String          
+  id        String
   name      String
   color     String          // Cor hexadecimal (#FF5733)
   type      transactionType // INCOME ou EXPENSE
   createdAt DateTime        @default(now())
   updatedAt DateTime        @updatedAt
-  
+
   transactions Transaction[]
-  
+
   @@unique([name, type])
 }
 ```
 
 **Campos:**
+
 - `id`: Identificador único (ObjectId do MongoDB)
 - `name`: Nome da categoria
 - `color`: Cor em hexadecimal para representação visual
@@ -138,6 +147,7 @@ model Category {
 ---
 
 #### 2. **Transaction** (Transação)
+
 Representa uma transação financeira do usuário.
 
 ```prisma
@@ -150,16 +160,17 @@ model Transaction {
   userId      String          // ID do usuário (Firebase Auth)
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
-  
+
   categoryId String   @db.ObjectId
   categoty   Category @relation(fields: [categoryId], references: [id])
-  
+
   @@index([userId, date])
   @@index([userId, date, categoryId])
 }
 ```
 
 **Campos:**
+
 - `id`: Identificador único
 - `description`: Descrição da transação
 - `amount`: Valor monetário
@@ -170,12 +181,14 @@ model Transaction {
 - `categoty`: Relacionamento com a categoria
 
 **Índices:**
+
 - `[userId, date]`: Otimização para consultas por usuário e data
 - `[userId, date, categoryId]`: Otimização para filtros complexos
 
 ---
 
 #### 3. **Enum transactionType**
+
 ```prisma
 enum transactionType {
   INCOME   // Receita
@@ -208,7 +221,7 @@ export const authMiddleware = async (
   reply: FastifyReply,
 ): Promise<void> => {
   const authHeader = request.headers.authorization;
-  
+
   // Verificar se o token foi fornecido
   if (!authHeader) {
     reply.status(401).send({ error: "Token de autorização não fornecido" });
@@ -216,8 +229,8 @@ export const authMiddleware = async (
   }
 
   // Extrair o token (com ou sem Bearer)
-  const token = authHeader.startsWith("Bearer ") 
-    ? authHeader.replace("Bearer ", "") 
+  const token = authHeader.startsWith("Bearer ")
+    ? authHeader.replace("Bearer ", "")
     : authHeader;
 
   try {
@@ -233,6 +246,7 @@ export const authMiddleware = async (
 ```
 
 **Fluxo:**
+
 1. Extrai o token do header `Authorization`
 2. Remove o prefixo "Bearer " se presente
 3. Valida o token com Firebase Admin
@@ -240,6 +254,7 @@ export const authMiddleware = async (
 5. Adiciona `userId` ao objeto `request`
 
 **Respostas:**
+
 - ✅ **200**: Token válido, `userId` adicionado ao request
 - ❌ **401**: Token não fornecido, inválido ou expirado
 
@@ -285,16 +300,19 @@ Se alguma variável obrigatória estiver faltando, o processo é encerrado com e
 ## 🚀 Rotas da API
 
 ### Base URL
+
 ```
 http://localhost:3001/api
 ```
 
 ### Health Check
+
 ```http
 GET /api/health
 ```
 
 **Resposta:**
+
 ```json
 {
   "status": "ok",
@@ -307,16 +325,19 @@ GET /api/health
 ### 📂 Categorias
 
 #### Listar Categorias
+
 ```http
 GET /api/categories
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Resposta (200):**
+
 ```json
 [
   {
@@ -339,6 +360,7 @@ Authorization: Bearer <token>
 ```
 
 **Erros:**
+
 - **401**: Token não fornecido ou inválido
 - **500**: Erro ao buscar categorias
 
@@ -347,21 +369,24 @@ Authorization: Bearer <token>
 ### 💰 Transações
 
 #### 1. Criar Transação
+
 ```http
 POST /api/transactions
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 Content-Type: application/json
 ```
 
 **Body:**
+
 ```json
 {
   "description": "Compra no supermercado",
-  "amount": 150.50,
+  "amount": 150.5,
   "date": "2025-10-20",
   "categoryId": "***",
   "type": "EXPENSE"
@@ -369,11 +394,12 @@ Content-Type: application/json
 ```
 
 **Resposta (201):**
+
 ```json
 {
   "id": "***",
   "description": "Compra no supermercado",
-  "amount": 150.50,
+  "amount": 150.5,
   "date": "2025-10-20T00:00:00Z",
   "type": "EXPENSE",
   "userId": "***",
@@ -390,34 +416,39 @@ Content-Type: application/json
 ```
 
 **Erros:**
+
 - **400**: Dados inválidos ou categoria inválida
 - **401**: Usuário não autenticado
 
 ---
 
 #### 2. Listar Transações (com filtros)
+
 ```http
 GET /api/transactions?month=10&year=2025&type=EXPENSE&categoryId=***
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Query Params (opcionais):**
+
 - `month`: Mês (1-12)
 - `year`: Ano (ex: 2025)
 - `type`: INCOME ou EXPENSE
 - `categoryId`: ID da categoria
 
 **Resposta (200):**
+
 ```json
 [
   {
     "id": "***",
     "description": "Compra no supermercado",
-    "amount": 150.50,
+    "amount": 150.5,
     "date": "2025-10-20T00:00:00Z",
     "type": "EXPENSE",
     "userId": "firebase-user-id-123",
@@ -434,38 +465,42 @@ Authorization: Bearer <token>
 ---
 
 #### 3. Resumo Financeiro Mensal
+
 ```http
 GET /api/transactions/summary?month=10&year=2025
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Query Params (obrigatórios):**
+
 - `month`: Mês (1-12)
 - `year`: Ano (ex: 2025)
 
 **Resposta (200):**
+
 ```json
 {
   "totalExpenses": 850.75,
-  "totalIncomes": 3500.00,
+  "totalIncomes": 3500.0,
   "totalBalance": 2649.25,
   "expensesByCategory": [
     {
       "categoryId": "***",
       "categoryName": "Alimentação",
       "categoryColor": "#FF5733",
-      "amount": 450.50,
+      "amount": 450.5,
       "percentage": 52.95
     },
     {
       "categoryId": "***",
       "categoryName": "Transporte",
       "categoryColor": "#33A8FF",
-      "amount": 200.00,
+      "amount": 200.0,
       "percentage": 23.51
     },
     {
@@ -480,6 +515,7 @@ Authorization: Bearer <token>
 ```
 
 **Explicação dos campos:**
+
 - `totalExpenses`: Soma de todas as despesas do mês
 - `totalIncomes`: Soma de todas as receitas do mês
 - `totalBalance`: Saldo (receitas - despesas)
@@ -490,52 +526,56 @@ Authorization: Bearer <token>
 ---
 
 #### 4. Histórico de Transações (Gráfico)
+
 ```http
 GET /api/transactions/historical?month=10&year=2025&months=6
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Query Params:**
+
 - `month`: Mês base (1-12) - **obrigatório**
 - `year`: Ano base (ex: 2025) - **obrigatório**
 - `months`: Quantidade de meses retroativos (1-12, padrão: 6) - **opcional**
 
 **Resposta (200):**
+
 ```json
 {
   "history": [
     {
       "name": "mai/2025",
-      "INCOME": 3500.00,
-      "EXPENSES": 1200.50
+      "INCOME": 3500.0,
+      "EXPENSES": 1200.5
     },
     {
       "name": "jun/2025",
-      "INCOME": 3500.00,
+      "INCOME": 3500.0,
       "EXPENSES": 980.75
     },
     {
       "name": "jul/2025",
-      "INCOME": 4000.00,
-      "EXPENSES": 1500.00
+      "INCOME": 4000.0,
+      "EXPENSES": 1500.0
     },
     {
       "name": "ago/2025",
-      "INCOME": 3500.00,
-      "EXPENSES": 1100.00
+      "INCOME": 3500.0,
+      "EXPENSES": 1100.0
     },
     {
       "name": "set/2025",
-      "INCOME": 3500.00,
+      "INCOME": 3500.0,
       "EXPENSES": 1350.25
     },
     {
       "name": "out/2025",
-      "INCOME": 3500.00,
+      "INCOME": 3500.0,
       "EXPENSES": 850.75
     }
   ]
@@ -543,6 +583,7 @@ Authorization: Bearer <token>
 ```
 
 **Como funciona:**
+
 - Retorna dados dos últimos N meses (padrão 6)
 - Agrupa receitas e despesas por mês
 - Formato ideal para criar gráficos de linha/barra
@@ -551,19 +592,23 @@ Authorization: Bearer <token>
 ---
 
 #### 5. Deletar Transação
+
 ```http
 DELETE /api/transactions/:id
 ```
 
 **Headers:**
+
 ```
 Authorization: Bearer <token>
 ```
 
 **Params:**
+
 - `id`: ID da transação (ObjectId do MongoDB)
 
 **Resposta (200):**
+
 ```json
 {
   "message": "Transação deletada com sucesso"
@@ -571,6 +616,7 @@ Authorization: Bearer <token>
 ```
 
 **Erros:**
+
 - **400**: ID da transação inválido
 - **401**: Usuário não autenticado
 - **500**: Erro ao deletar transação
@@ -582,14 +628,17 @@ Authorization: Bearer <token>
 ### 1. Category Controller (`catergory.controller.ts`)
 
 #### `getCategories`
+
 **Responsabilidade:** Buscar todas as categorias do banco de dados
 
 **Lógica:**
+
 1. Busca todas as categorias no banco
 2. Ordena por nome em ordem alfabética
 3. Retorna array de categorias
 
 **Código:**
+
 ```typescript
 export const getCategories = async (
   request: FastifyRequest,
@@ -597,7 +646,7 @@ export const getCategories = async (
 ): Promise<void> => {
   try {
     const categories = await prisma.category.findMany({
-      orderBy: { name: "asc" }
+      orderBy: { name: "asc" },
     });
     reply.send(categories);
   } catch (err) {
@@ -612,9 +661,11 @@ export const getCategories = async (
 ### 2. Transaction Controllers
 
 #### `createTransaction.controller.ts`
+
 **Responsabilidade:** Criar uma nova transação
 
 **Fluxo:**
+
 1. Valida se o usuário está autenticado (`userId`)
 2. Valida os dados da requisição usando schema Zod
 3. Verifica se a categoria existe e corresponde ao tipo da transação
@@ -623,6 +674,7 @@ export const getCategories = async (
 6. Retorna a transação criada com a categoria relacionada
 
 **Validações:**
+
 - Descrição: obrigatória
 - Valor: deve ser positivo
 - Data: formato válido
@@ -632,14 +684,17 @@ export const getCategories = async (
 ---
 
 #### `getTransactions.controller.ts`
+
 **Responsabilidade:** Buscar transações com filtros opcionais
 
 **Filtros disponíveis:**
+
 - `month` e `year`: Filtra transações de um mês específico
 - `type`: Filtra por INCOME ou EXPENSE
 - `categoryId`: Filtra por categoria
 
 **Lógica:**
+
 1. Valida autenticação
 2. Constrói objeto de filtros dinamicamente
 3. Se mês e ano fornecidos:
@@ -652,21 +707,20 @@ export const getCategories = async (
 7. Retorna array de transações
 
 **Uso do Day.js:**
+
 ```typescript
-const startDate = dayjs.utc(`${year}-${month}-01`)
-  .startOf("month")
-  .toDate();
-const endDate = dayjs.utc(startDate)
-  .endOf("month")
-  .toDate();
+const startDate = dayjs.utc(`${year}-${month}-01`).startOf("month").toDate();
+const endDate = dayjs.utc(startDate).endOf("month").toDate();
 ```
 
 ---
 
 #### `getTransactionsSummary.controller.ts`
+
 **Responsabilidade:** Calcular resumo financeiro mensal
 
 **Algoritmo:**
+
 1. Valida autenticação
 2. Valida que mês e ano foram fornecidos
 3. Calcula período do mês
@@ -684,13 +738,14 @@ const endDate = dayjs.utc(startDate)
 8. Retorna resumo completo
 
 **Estrutura de Dados:**
+
 ```typescript
 type TrasactionSummary = {
   totalExpenses: number;
   totalIncomes: number;
   totalBalance: number;
   expensesByCategory: CategotySummary[];
-}
+};
 
 type CategotySummary = {
   categoryId: string;
@@ -698,10 +753,11 @@ type CategotySummary = {
   categoryColor: string;
   amount: number;
   percentage: number;
-}
+};
 ```
 
 **Por que usar Map?**
+
 - Agrupa eficientemente despesas por categoria
 - Permite atualização dinâmica dos valores
 - Conversão fácil para array com `Array.from(map.values())`
@@ -709,14 +765,17 @@ type CategotySummary = {
 ---
 
 #### `getHistoricalTransaction.controller.ts`
+
 **Responsabilidade:** Gerar histórico de transações para gráficos
 
 **Parâmetros:**
+
 - `month`: Mês base
 - `year`: Ano base
 - `months`: Quantidade de meses retroativos (padrão: 6)
 
 **Algoritmo:**
+
 1. Valida autenticação
 2. Calcula período:
    - `startDate`: N meses antes do mês base
@@ -740,15 +799,18 @@ type CategotySummary = {
 6. Retorna histórico formatado
 
 **Exemplo de período:**
+
 - Mês base: outubro/2025, months: 6
 - Período: maio/2025 até outubro/2025
 
 ---
 
 #### `deleteTransaction.Controller.ts`
+
 **Responsabilidade:** Deletar uma transação
 
 **Validações:**
+
 1. Verifica se usuário está autenticado
 2. Busca transação por ID e userId (segurança)
 3. Se não encontrada, retorna erro 400
@@ -756,6 +818,7 @@ type CategotySummary = {
 5. Retorna mensagem de sucesso
 
 **Segurança:**
+
 - Sempre valida que a transação pertence ao usuário logado
 - Evita que um usuário delete transações de outro
 
@@ -768,15 +831,17 @@ type CategotySummary = {
 **Função:** Validar autenticação em rotas protegidas
 
 **Como usar:**
+
 ```typescript
 // Aplicar em todas as rotas de um grupo
-fastify.addHook('preHandler', authMiddleware);
+fastify.addHook("preHandler", authMiddleware);
 
 // Ou em uma rota específica
-fastify.get('/rota-protegida', { preHandler: authMiddleware }, handler);
+fastify.get("/rota-protegida", { preHandler: authMiddleware }, handler);
 ```
 
 **Extensão do FastifyRequest:**
+
 ```typescript
 declare module "fastify" {
   interface FastifyRequest {
@@ -784,6 +849,7 @@ declare module "fastify" {
   }
 }
 ```
+
 Permite adicionar propriedade `userId` ao objeto request.
 
 ---
@@ -793,6 +859,7 @@ Permite adicionar propriedade `userId` ao objeto request.
 ### Biblioteca: Zod
 
 #### Por que Zod?
+
 - Validação em tempo de execução
 - Inferência automática de tipos TypeScript
 - Mensagens de erro personalizadas
@@ -803,12 +870,15 @@ Permite adicionar propriedade `userId` ao objeto request.
 ### Schemas de Transação (`transaction.schema.ts`)
 
 #### 1. `createTransactionSchema`
+
 ```typescript
 export const createTransactionSchema = z.object({
   description: z.string().min(1, "Descrição Obrigatória"),
   amount: z.number().positive("Valor deve ser positivo"),
   date: z.coerce.date({ errorMap: () => ({ message: "Data inválida" }) }),
-  categoryId: z.string().refine(isValidObjectId, { message: "Categoria inválido" }),
+  categoryId: z
+    .string()
+    .refine(isValidObjectId, { message: "Categoria inválido" }),
   type: z.enum([transactionType.EXPENSE, transactionType.INCOME], {
     errorMap: () => ({ message: "Tipo Invalido" }),
   }),
@@ -816,6 +886,7 @@ export const createTransactionSchema = z.object({
 ```
 
 **Validações:**
+
 - `description`: String não vazia
 - `amount`: Número positivo
 - `date`: Data válida (com coerção de string para Date)
@@ -825,6 +896,7 @@ export const createTransactionSchema = z.object({
 ---
 
 #### 2. `getTransactionSchema`
+
 ```typescript
 export const getTransactionSchema = z.object({
   month: z.string().optional(),
@@ -839,6 +911,7 @@ export const getTransactionSchema = z.object({
 ---
 
 #### 3. `getTransactionSummarySchema`
+
 ```typescript
 export const getTransactionSummarySchema = z.object({
   month: z.string({ message: "O mes é obrigatório" }),
@@ -851,6 +924,7 @@ export const getTransactionSummarySchema = z.object({
 ---
 
 #### 4. `getHistoricalTransactionSchema`
+
 ```typescript
 export const getHistoricalTransactionSchema = z.object({
   month: z.coerce.number().min(1).max(12),
@@ -860,6 +934,7 @@ export const getHistoricalTransactionSchema = z.object({
 ```
 
 **Validações:**
+
 - `month`: Número entre 1 e 12
 - `year`: Número entre 2000 e 2100
 - `months`: Número entre 1 e 12 (padrão: 6)
@@ -868,6 +943,7 @@ export const getHistoricalTransactionSchema = z.object({
 ---
 
 #### 5. `deleteTransactionSchema`
+
 ```typescript
 export const deleteTransactionSchema = z.object({
   id: z.string().refine(isValidObjectId, { message: "Id inválido" }),
@@ -875,6 +951,7 @@ export const deleteTransactionSchema = z.object({
 ```
 
 **Validação personalizada:**
+
 ```typescript
 const isValidObjectId = (id: string): boolean => ObjectId.isValid(id);
 ```
@@ -904,13 +981,14 @@ fastify.route({
   method: "POST",
   url: "/",
   schema: {
-    body: zodToJsonSchema(createTransactionSchema)
+    body: zodToJsonSchema(createTransactionSchema),
   },
-  handler: createTrasaction
+  handler: createTrasaction,
 });
 ```
 
 **Benefícios:**
+
 - Validação automática pelo Fastify
 - Documentação automática da API
 - Mensagens de erro padronizadas
@@ -926,6 +1004,7 @@ fastify.route({
 #### Categorias Pré-definidas:
 
 **Despesas (EXPENSE):**
+
 1. Alimentação (#FF5733)
 2. Transporte (#33A8FF)
 3. Moradia (#33FF57)
@@ -936,6 +1015,7 @@ fastify.route({
 8. Outros (#B033FF)
 
 **Receitas (INCOME):**
+
 1. Salário (#33FF57)
 2. Freelance (#33A8FF)
 3. Investimentos (#FFBA33)
@@ -944,6 +1024,7 @@ fastify.route({
 #### Função `inializeGlobalCategories`
 
 **Algoritmo:**
+
 1. Para cada categoria na lista:
 2. Verifica se já existe no banco (nome + tipo)
 3. Se NÃO existir:
@@ -955,13 +1036,16 @@ fastify.route({
 6. Retorna todas as categorias
 
 **Quando é executada:**
+
 - No `server.ts`, durante a inicialização do servidor
 - Antes do servidor começar a aceitar requisições
 
 **Por que usar `Pick`?**
+
 ```typescript
 type GlobalCategoryInput = Pick<Category, "name" | "color" | "type">;
 ```
+
 - Extrai apenas os campos necessários do tipo Category
 - Evita precisar definir campos como `id`, `createdAt`, `updatedAt`
 
@@ -970,6 +1054,7 @@ type GlobalCategoryInput = Pick<Category, "name" | "color" | "type">;
 ## 🚀 Como Executar
 
 ### Pré-requisitos
+
 - Node.js 18+ instalado
 - MongoDB Atlas (ou instância local do MongoDB)
 - Conta Firebase com projeto configurado
@@ -1002,8 +1087,9 @@ npm install
 5. Substituir `<password>` pela senha do usuário
 
 **Exemplo de connection string:**
+
 ```
-mongodb+srv://devbills:senha123@cluster0.xxxxx.mongodb.net/devbills
+mongodb+srv://ContaZero:senha123@cluster0.xxxxx.mongodb.net/ContaZero
 ```
 
 ---
@@ -1037,6 +1123,7 @@ FIREBASE_CLIENT_EMAIL=***
 ```
 
 **⚠️ IMPORTANTE:**
+
 - A chave privada deve estar entre aspas duplas
 - Manter os `\n` na chave privada
 
@@ -1062,6 +1149,7 @@ npm run dev
 ```
 
 **Saída esperada:**
+
 ```
 ✅ Conectado ao banco de dados
 ✅ Criada a Alimentação
@@ -1166,6 +1254,7 @@ Retorna resumo completo
 ## 🔍 Boas Práticas Implementadas
 
 ### 1. **Separação de Responsabilidades**
+
 - Controllers: Lógica de negócio
 - Middlewares: Autenticação e validação
 - Services: Operações auxiliares
@@ -1173,26 +1262,31 @@ Retorna resumo completo
 - Types: Tipagem TypeScript
 
 ### 2. **Validação em Múltiplas Camadas**
+
 - Variáveis de ambiente (Zod)
 - Requisições HTTP (Zod + Fastify)
 - Dados do banco (Prisma)
 
 ### 3. **Segurança**
+
 - Autenticação obrigatória em rotas sensíveis
 - Validação de propriedade (usuário só acessa suas transações)
 - Validação de ObjectIds para prevenir injeções
 
 ### 4. **Tratamento de Erros**
+
 - Try/catch em todos os controllers
 - Logs de erro com Fastify logger
 - Mensagens de erro descritivas
 
 ### 5. **Performance**
+
 - Índices no banco de dados
 - Uso de Map para agregações
 - Queries otimizadas com Prisma
 
 ### 6. **Manutenibilidade**
+
 - Código TypeScript tipado
 - Comentários explicativos
 - Estrutura de pastas organizada
@@ -1203,9 +1297,11 @@ Retorna resumo completo
 ## 🐛 Problemas Comuns e Soluções
 
 ### 1. Erro: "Token de autorização não fornecido"
+
 **Causa:** Header Authorization não enviado ou mal formatado
 
 **Solução:**
+
 ```
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
 ```
@@ -1213,9 +1309,11 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
 ---
 
 ### 2. Erro: "Categoria inválido"
+
 **Causa:** CategoryId não é um ObjectId válido do MongoDB
 
 **Solução:**
+
 - Usar um ID de categoria válido
 - Formato: 24 caracteres hexadecimais
 - Exemplo: `507f1f77bcf86cd799439011`
@@ -1223,18 +1321,22 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
 ---
 
 ### 3. Erro: "DATABASE_URL é obrigatório"
+
 **Causa:** Variável de ambiente não configurada
 
 **Solução:**
+
 - Criar arquivo `.env`
 - Adicionar `DATABASE_URL=mongodb+srv://...`
 
 ---
 
 ### 4. Erro: "Firebase Admin não inicializado"
+
 **Causa:** Credenciais do Firebase faltando ou inválidas
 
 **Solução:**
+
 - Verificar `.env`:
   ```
   FIREBASE_PROJECT_ID=...
@@ -1246,9 +1348,11 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
 ---
 
 ### 5. Erro: "Cannot find module 'prisma'"
+
 **Causa:** Prisma Client não foi gerado
 
 **Solução:**
+
 ```bash
 npx prisma generate
 ```
@@ -1295,14 +1399,17 @@ export type CategotySummary = {
 ## 🎓 Conceitos Técnicos Explicados
 
 ### 1. **ORM (Prisma)**
+
 Object-Relational Mapping - mapeia objetos TypeScript para documentos do MongoDB.
 
 **Sem Prisma:**
+
 ```typescript
 const result = await db.collection('transactions').insertOne({...});
 ```
 
 **Com Prisma:**
+
 ```typescript
 const result = await prisma.transaction.create({ data: {...} });
 ```
@@ -1310,22 +1417,24 @@ const result = await prisma.transaction.create({ data: {...} });
 ---
 
 ### 2. **Middleware no Fastify**
+
 Funções executadas antes do handler principal.
 
 ```typescript
 // Adicionar a todas as rotas de um grupo
-fastify.addHook('preHandler', authMiddleware);
+fastify.addHook("preHandler", authMiddleware);
 ```
 
 ---
 
 ### 3. **Zod Schema → TypeScript Type**
+
 Inferência automática de tipos:
 
 ```typescript
 const schema = z.object({
   name: z.string(),
-  age: z.number()
+  age: z.number(),
 });
 
 type Person = z.infer<typeof schema>;
@@ -1335,17 +1444,20 @@ type Person = z.infer<typeof schema>;
 ---
 
 ### 4. **Day.js UTC**
+
 Manipulação consistente de datas em UTC:
 
 ```typescript
-dayjs.utc("2025-10-01")  // Data em UTC
-  .startOf("month")       // Primeiro dia do mês 00:00:00
-  .toDate()               // Converte para Date do JavaScript
+dayjs
+  .utc("2025-10-01") // Data em UTC
+  .startOf("month") // Primeiro dia do mês 00:00:00
+  .toDate(); // Converte para Date do JavaScript
 ```
 
 ---
 
 ### 5. **Map para Agregação**
+
 Estrutura de dados chave-valor:
 
 ```typescript
@@ -1359,14 +1471,14 @@ const value = map.get("key1"); // 200
 
 ## 📦 Dependências Principais
 
-| Pacote | Versão | Uso |
-|--------|--------|-----|
-| fastify | 5.3.3 | Framework web |
-| @prisma/client | 6.9.0 | ORM para banco de dados |
-| firebase-admin | 13.5.0 | Autenticação |
-| zod | 3.25.64 | Validação de dados |
-| dayjs | 1.11.13 | Manipulação de datas |
-| typescript | 5.8.3 | Linguagem |
+| Pacote         | Versão  | Uso                     |
+| -------------- | ------- | ----------------------- |
+| fastify        | 5.3.3   | Framework web           |
+| @prisma/client | 6.9.0   | ORM para banco de dados |
+| firebase-admin | 13.5.0  | Autenticação            |
+| zod            | 3.25.64 | Validação de dados      |
+| dayjs          | 1.11.13 | Manipulação de datas    |
+| typescript     | 5.8.3   | Linguagem               |
 
 ---
 
@@ -1404,7 +1516,8 @@ const value = map.get("key1"); // 200
 
 ## 👨‍💻 Autor
 
-**DevBills Project**
+**ContaZero Project**
+
 - Projeto educacional de API de gestão financeira
 - Desenvolvido com TypeScript, Fastify e Prisma
 
@@ -1419,6 +1532,7 @@ ISC
 ## 🆘 Suporte
 
 Para dúvidas e problemas:
+
 1. Verificar esta documentação
 2. Consultar logs do servidor
 3. Verificar configuração do `.env`

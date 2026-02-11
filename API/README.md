@@ -1,4 +1,4 @@
-# 💰 DevBills API
+# 💰 ContaZero API
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Fastify](https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white)
@@ -12,28 +12,31 @@
 
 ## 📖 Sobre o Projeto
 
-**DevBills API** é uma aplicação backend robusta desenvolvida em **TypeScript** que permite aos usuários gerenciar suas finanças pessoais de forma segura e eficiente. A API oferece funcionalidades completas para:
+**ContaZero API** é uma aplicação backend robusta desenvolvida em **TypeScript** que permite aos usuários gerenciar suas finanças pessoais de forma segura e eficiente. A API oferece funcionalidades completas para:
 
 ✅ Criar, listar, filtrar e deletar transações financeiras  
 ✅ Categorizar receitas e despesas  
 ✅ Obter resumos financeiros mensais  
 ✅ Visualizar histórico de transações para gráficos  
-✅ Autenticação segura com Firebase Authentication  
+✅ Autenticação segura com Firebase Authentication
 
 ---
 
 ## 🚀 Tecnologias
 
 ### Backend
+
 - **[Fastify](https://fastify.dev/)** - Framework web de alta performance
 - **[TypeScript](https://www.typescriptlang.org/)** - JavaScript com tipagem estática
 - **[Prisma](https://www.prisma.io/)** - ORM moderno para Node.js
 - **[MongoDB](https://www.mongodb.com/)** - Banco de dados NoSQL
 
 ### Autenticação
+
 - **[Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)** - Autenticação e verificação de tokens
 
 ### Validação & Utilitários
+
 - **[Zod](https://zod.dev/)** - Validação de schemas TypeScript-first
 - **[Day.js](https://day.js.org/)** - Manipulação de datas leve e poderosa
 - **[Biome](https://biomejs.dev/)** - Linter e formatador rápido
@@ -102,7 +105,7 @@ API/
 
 ### Pré-requisitos
 
-- **Node.js** 18+ 
+- **Node.js** 18+
 - **MongoDB Atlas** (ou instância local)
 - **Conta Firebase** com projeto configurado
 
@@ -128,7 +131,7 @@ PORT=3001
 NODE_ENV=dev
 
 # MongoDB
-DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/devbills
+DATABASE_URL=mongodb+srv://usuario:senha@cluster.mongodb.net/ContaZero
 
 # Firebase
 FIREBASE_PROJECT_ID=seu-projeto-id
@@ -159,39 +162,42 @@ npm run dev
 
 ## 📚 Documentação
 
-| Documento | Descrição |
-|-----------|-----------|
+| Documento                                     | Descrição                                                                     |
+| --------------------------------------------- | ----------------------------------------------------------------------------- |
 | **[DOCUMENTACAO.md](./docs/DOCUMENTACAO.md)** | 📖 Documentação completa da API com todos os detalhes, exemplos e explicações |
-| **[GUIA-RAPIDO.md](./docs/GUIA-RAPIDO.md)** | ⚡ Referência rápida de endpoints e comandos |
-| **[ARQUITETURA.md](./docs/ARQUITETURA.md)** | 🏗️ Diagramas de arquitetura, fluxos e padrões utilizados |
-| **[GLOSSARIO.md](./docs/GLOSSARIO.md)** | 📖 Glossário de termos técnicos e conceitos |
+| **[GUIA-RAPIDO.md](./docs/GUIA-RAPIDO.md)**   | ⚡ Referência rápida de endpoints e comandos                                  |
+| **[ARQUITETURA.md](./docs/ARQUITETURA.md)**   | 🏗️ Diagramas de arquitetura, fluxos e padrões utilizados                      |
+| **[GLOSSARIO.md](./docs/GLOSSARIO.md)**       | 📖 Glossário de termos técnicos e conceitos                                   |
 
 ---
 
 ## 🔌 Endpoints Principais
 
 ### Base URL
+
 ```
 http://localhost:3001/api
 ```
 
 ### Autenticação
+
 Todas as rotas (exceto `/health`) requerem token Firebase no header:
+
 ```
 Authorization: Bearer <seu-token-aqui>
 ```
 
 ### Rotas Disponíveis
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| `GET` | `/api/health` | Health check do servidor |
-| `GET` | `/api/categories` | Listar categorias |
-| `POST` | `/api/transactions` | Criar transação |
-| `GET` | `/api/transactions` | Listar transações (com filtros) |
-| `GET` | `/api/transactions/summary` | Resumo financeiro mensal |
-| `GET` | `/api/transactions/historical` | Histórico para gráficos |
-| `DELETE` | `/api/transactions/:id` | Deletar transação |
+| Método   | Endpoint                       | Descrição                       |
+| -------- | ------------------------------ | ------------------------------- |
+| `GET`    | `/api/health`                  | Health check do servidor        |
+| `GET`    | `/api/categories`              | Listar categorias               |
+| `POST`   | `/api/transactions`            | Criar transação                 |
+| `GET`    | `/api/transactions`            | Listar transações (com filtros) |
+| `GET`    | `/api/transactions/summary`    | Resumo financeiro mensal        |
+| `GET`    | `/api/transactions/historical` | Histórico para gráficos         |
+| `DELETE` | `/api/transactions/:id`        | Deletar transação               |
 
 ---
 
@@ -221,15 +227,16 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
 ```
 
 **Resposta:**
+
 ```json
 {
   "totalExpenses": 850.75,
-  "totalIncomes": 3500.00,
+  "totalIncomes": 3500.0,
   "totalBalance": 2649.25,
   "expensesByCategory": [
     {
       "categoryName": "Alimentação",
-      "amount": 450.50,
+      "amount": 450.5,
       "percentage": 52.95
     }
   ]
@@ -243,12 +250,14 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6...
 ### Modelos
 
 #### Category (Categoria)
+
 - `id`: ObjectId
 - `name`: Nome da categoria
 - `color`: Cor em hexadecimal
 - `type`: INCOME ou EXPENSE
 
 #### Transaction (Transação)
+
 - `id`: ObjectId
 - `description`: Descrição
 - `amount`: Valor
@@ -317,29 +326,33 @@ curl -H "Authorization: Bearer SEU_TOKEN" \
 
 ## 📝 Variáveis de Ambiente
 
-| Variável | Descrição | Exemplo |
-|----------|-----------|---------|
-| `PORT` | Porta do servidor | `3001` |
-| `NODE_ENV` | Ambiente de execução | `dev`, `test`, `prod` |
-| `DATABASE_URL` | Connection string do MongoDB | `mongodb+srv://...` |
-| `FIREBASE_PROJECT_ID` | ID do projeto Firebase | `devbills-123` |
-| `FIREBASE_PRIVATE_KEY` | Chave privada Firebase | `-----BEGIN...` |
-| `FIREBASE_CLIENT_EMAIL` | Email do service account | `firebase-adminsdk@...` |
+| Variável                | Descrição                    | Exemplo                 |
+| ----------------------- | ---------------------------- | ----------------------- |
+| `PORT`                  | Porta do servidor            | `3001`                  |
+| `NODE_ENV`              | Ambiente de execução         | `dev`, `test`, `prod`   |
+| `DATABASE_URL`          | Connection string do MongoDB | `mongodb+srv://...`     |
+| `FIREBASE_PROJECT_ID`   | ID do projeto Firebase       | `ContaZero-123`         |
+| `FIREBASE_PRIVATE_KEY`  | Chave privada Firebase       | `-----BEGIN...`         |
+| `FIREBASE_CLIENT_EMAIL` | Email do service account     | `firebase-adminsdk@...` |
 
 ---
 
 ## 🐛 Resolução de Problemas
 
 ### ❌ Erro: "Token de autorização não fornecido"
+
 **Solução:** Adicionar header `Authorization: Bearer <token>`
 
 ### ❌ Erro: "DATABASE_URL é obrigatório"
+
 **Solução:** Verificar arquivo `.env` e adicionar `DATABASE_URL`
 
 ### ❌ Erro: "Cannot find module 'prisma'"
+
 **Solução:** Executar `npx prisma generate`
 
 ### ❌ Erro: "Firebase Admin não inicializado"
+
 **Solução:** Verificar credenciais do Firebase no `.env`
 
 ---
@@ -375,7 +388,8 @@ Este projeto está sob a licença **ISC**.
 
 ## 👨‍💻 Autor
 
-**DevBills Project**
+**ContaZero Project**
+
 - Projeto educacional de API de gestão financeira
 - Desenvolvido com TypeScript, Fastify e Prisma
 
@@ -393,6 +407,7 @@ Este projeto está sob a licença **ISC**.
 ## 📞 Suporte
 
 Para dúvidas ou problemas:
+
 1. Consulte a [documentação completa](./docs/DOCUMENTACAO.md)
 2. Verifique a [arquitetura](./docs/ARQUITETURA.md)
 3. Consulte o [guia rápido](./docs/GUIA-RAPIDO.md)
@@ -404,6 +419,6 @@ Para dúvidas ou problemas:
 
 **Feito com ❤️ e TypeScript**
 
-[⬆ Voltar ao topo](#-devbills-api)
+[⬆ Voltar ao topo](#-ContaZero-api)
 
 </div>

@@ -1,13 +1,15 @@
-# 🚀 Guia Rápido - DevBills API
+# 🚀 Guia Rápido - ContaZero API
 
 ## ⚡ Início Rápido
 
 ### 1. Instalação
+
 ```bash
 npm install
 ```
 
 ### 2. Configurar `.env`
+
 ```env
 PORT=3001
 NODE_ENV=dev
@@ -18,12 +20,14 @@ FIREBASE_CLIENT_EMAIL=
 ```
 
 ### 3. Configurar Prisma
+
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
 ### 4. Executar
+
 ```bash
 npm run dev
 ```
@@ -33,11 +37,13 @@ npm run dev
 ## 📍 Endpoints Principais
 
 ### Base URL
+
 ```
 
 ```
 
 ### Health Check
+
 ```http
 GET /api/health
 ```
@@ -57,12 +63,14 @@ Authorization: Bearer ***
 ## 📂 Categorias
 
 ### Listar Categorias
+
 ```http
 GET /api/categories
 Authorization: Bearer <token>
 ```
 
 **Resposta:**
+
 ```json
 [
   {
@@ -79,6 +87,7 @@ Authorization: Bearer <token>
 ## 💰 Transações
 
 ### 1. Criar Transação
+
 ```http
 POST /api/transactions
 Authorization: Bearer <token>
@@ -96,12 +105,14 @@ Content-Type: application/json
 ---
 
 ### 2. Listar Transações (com filtros)
+
 ```http
 GET /api/transactions?month=10&year=2025&type=EXPENSE
 Authorization: Bearer <token>
 ```
 
 **Filtros (opcionais):**
+
 - `month`: 1-12
 - `year`: Ex: 2025
 - `type`: INCOME ou EXPENSE
@@ -110,23 +121,25 @@ Authorization: Bearer <token>
 ---
 
 ### 3. Resumo Mensal
+
 ```http
 GET /api/transactions/summary?month=10&year=2025
 Authorization: Bearer <token>
 ```
 
 **Resposta:**
+
 ```json
 {
   "totalExpenses": 850.75,
-  "totalIncomes": 3500.00,
+  "totalIncomes": 3500.0,
   "totalBalance": 2649.25,
   "expensesByCategory": [
     {
       "categoryId": "507f...",
       "categoryName": "Alimentação",
       "categoryColor": "#FF5733",
-      "amount": 450.50,
+      "amount": 450.5,
       "percentage": 52.95
     }
   ]
@@ -136,17 +149,20 @@ Authorization: Bearer <token>
 ---
 
 ### 4. Histórico (para gráficos)
+
 ```http
 GET /api/transactions/historical?month=10&year=2025&months=6
 Authorization: Bearer <token>
 ```
 
 **Parâmetros:**
+
 - `month`: Mês base (1-12) - **obrigatório**
 - `year`: Ano base - **obrigatório**
 - `months`: Quantidade de meses retroativos (padrão: 6)
 
 **Resposta:**
+
 ```json
 {
   "history": [
@@ -160,12 +176,14 @@ Authorization: Bearer <token>
 ---
 
 ### 5. Deletar Transação
+
 ```http
 DELETE /api/transactions/:id
 Authorization: Bearer <token>
 ```
 
 **Resposta:**
+
 ```json
 {
   "message": "Transação deletada com sucesso"
@@ -177,6 +195,7 @@ Authorization: Bearer <token>
 ## 🔧 Comandos Úteis
 
 ### Prisma
+
 ```bash
 # Gerar cliente Prisma
 npx prisma generate
@@ -192,6 +211,7 @@ npx prisma format
 ```
 
 ### Desenvolvimento
+
 ```bash
 # Executar em modo dev (hot reload)
 npm run dev
@@ -208,18 +228,23 @@ npx biome format --write .
 ## 🐛 Resolver Problemas Comuns
 
 ### ❌ "Token de autorização não fornecido"
+
 **Solução:** Adicionar header `Authorization: Bearer <token>`
 
 ### ❌ "DATABASE_URL é obrigatório"
+
 **Solução:** Criar arquivo `.env` com `DATABASE_URL=...`
 
 ### ❌ "Cannot find module 'prisma'"
+
 **Solução:** Executar `npx prisma generate`
 
 ### ❌ "Categoria inválido"
+
 **Solução:** Usar um ObjectId válido (24 caracteres hexadecimais)
 
 ### ❌ "Firebase Admin não inicializado"
+
 **Solução:** Verificar credenciais Firebase no `.env`
 
 ---
@@ -238,6 +263,7 @@ enum transactionType {
 ## 🎨 Categorias Padrão
 
 ### Despesas (EXPENSE)
+
 - Alimentação
 - Transporte
 - Moradia
@@ -248,6 +274,7 @@ enum transactionType {
 - Outros
 
 ### Receitas (INCOME)
+
 - Salário
 - Freelance
 - Investimentos
@@ -279,13 +306,13 @@ API/
 
 ## 🔑 Códigos de Status HTTP
 
-| Código | Significado |
-|--------|-------------|
-| 200 | Sucesso |
-| 201 | Criado com sucesso |
-| 400 | Requisição inválida |
-| 401 | Não autenticado |
-| 500 | Erro no servidor |
+| Código | Significado         |
+| ------ | ------------------- |
+| 200    | Sucesso             |
+| 201    | Criado com sucesso  |
+| 400    | Requisição inválida |
+| 401    | Não autenticado     |
+| 500    | Erro no servidor    |
 
 ---
 

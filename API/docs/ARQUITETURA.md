@@ -1,4 +1,4 @@
-# 🏗️ Arquitetura da DevBills API
+# 🏗️ Arquitetura da ContaZero API
 
 ## 📐 Diagrama de Arquitetura
 
@@ -274,10 +274,12 @@
 ```
 
 ### Relacionamentos:
+
 - **Category → Transaction**: 1:N (Uma categoria pode ter várias transações)
 - **Transaction → Category**: N:1 (Cada transação pertence a uma categoria)
 
 ### Índices:
+
 ```
 Transaction:
   - [userId, date]           → Buscar transações de um usuário por período
@@ -385,6 +387,7 @@ Category:
 ## 🎯 Principais Padrões Utilizados
 
 ### 1. **MVC (Model-View-Controller)**
+
 ```
 Model      → Prisma Schema (schema.prisma)
 View       → JSON Responses (API REST)
@@ -392,24 +395,28 @@ Controller → Controllers (*.controller.ts)
 ```
 
 ### 2. **Repository Pattern**
+
 ```
 Prisma ORM atua como Repository Layer
 Abstrai acesso ao MongoDB
 ```
 
 ### 3. **Middleware Pattern**
+
 ```
 Intercepta requisições antes dos controllers
 Exemplo: authMiddleware
 ```
 
 ### 4. **DTO (Data Transfer Object)**
+
 ```
 Zod Schemas definem estrutura de dados
 Validação e tipagem automática
 ```
 
 ### 5. **Dependency Injection**
+
 ```
 Prisma Client injetado via import
 Firebase Admin injetado via import
@@ -467,17 +474,17 @@ Firebase Admin injetado via import
 
 ## 📦 Módulos e Responsabilidades
 
-| Módulo | Responsabilidade |
-|--------|-----------------|
-| `app.ts` | Configurar Fastify e plugins |
-| `server.ts` | Inicializar aplicação |
-| `Routes/` | Definir endpoints HTTP |
-| `controllers/` | Lógica de negócio |
-| `middlewares/` | Validação e autenticação |
-| `schemas/` | Validação com Zod |
-| `services/` | Lógica compartilhada |
-| `config/` | Configurações (env, prisma, firebase) |
-| `types/` | Tipos TypeScript |
+| Módulo         | Responsabilidade                      |
+| -------------- | ------------------------------------- |
+| `app.ts`       | Configurar Fastify e plugins          |
+| `server.ts`    | Inicializar aplicação                 |
+| `Routes/`      | Definir endpoints HTTP                |
+| `controllers/` | Lógica de negócio                     |
+| `middlewares/` | Validação e autenticação              |
+| `schemas/`     | Validação com Zod                     |
+| `services/`    | Lógica compartilhada                  |
+| `config/`      | Configurações (env, prisma, firebase) |
+| `types/`       | Tipos TypeScript                      |
 
 ---
 
