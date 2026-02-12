@@ -6,14 +6,14 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
 
 export const Login = () => {
-  const { singWithGoogle, authState } = useAuth();
+  const { signInWithGoogle, authState } = useAuth();
 
   const navigate = useNavigate();
 
   // Função para lidar com o login
   const handleLogin = async () => {
     try {
-      await singWithGoogle();
+      await signInWithGoogle();
     } catch (err) {
       console.error("error ao fazer login com o Google", err);
     }
@@ -32,7 +32,7 @@ export const Login = () => {
       <div className="max-w-md w-full space-y-8 ">
         <header>
           <h1 className="text-center text-3xl font-extrabold text-gray-900">
-            ContaZero
+            DevBills
           </h1>
           <p className="mt-2 text-center text-sm text-gray-600">
             Gerencie suas finanças de forma simples e eficiente

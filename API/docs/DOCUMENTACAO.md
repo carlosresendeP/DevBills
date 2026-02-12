@@ -1,4 +1,4 @@
-# 📚 Documentação Completa - ContaZero API
+# 📚 Documentação Completa - DevBills API
 
 ## 📋 Índice
 
@@ -19,7 +19,7 @@
 
 ## 🎯 Visão Geral
 
-A **ContaZero API** é uma aplicação backend desenvolvida em **TypeScript** com **Fastify** para gerenciamento de transações financeiras pessoais. A API permite que usuários autenticados criem, listem, filtrem e excluam transações de receitas e despesas, além de obter resumos financeiros e históricos.
+A **DevBills API** é uma aplicação backend desenvolvida em **TypeScript** com **Fastify** para gerenciamento de transações financeiras pessoais. A API permite que usuários autenticados criem, listem, filtrem e excluam transações de receitas e despesas, além de obter resumos financeiros e históricos.
 
 ### Principais Funcionalidades:
 
@@ -1516,7 +1516,7 @@ const value = map.get("key1"); // 200
 
 ## 👨‍💻 Autor
 
-**ContaZero Project**
+**DevBills Project**
 
 - Projeto educacional de API de gestão financeira
 - Desenvolvido com TypeScript, Fastify e Prisma

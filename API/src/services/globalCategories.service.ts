@@ -30,29 +30,25 @@ export const inializeGlobalCategories = async (): Promise<Category[]> => {
 
   //for = 'para cada' item é verificado se já existe no banco de dados
   //findFirst = 'encontrar o primeiro' item que corresponde ao critério se não encontrar retorna null
-  for(const category of globalCategories){
-    try{
+  for (const category of globalCategories) {
+    try {
       const existing = await prisma.category.findFirst({
-        where:{
+        where: {
           name: category.name,
           type: category.type,
-        }
-      })
+        },
+      });
 
-      if(!existing){
-        const newCategory = await prisma.category.create({data: category})
-        console.log(`✅ Criada a ${newCategory.name}`)
-        createdCategories.push(newCategory)
-      }else{
-        createdCategories.push(existing)
+      if (!existing) {
+        const newCategory = await prisma.category.create({ data: category });
+        createdCategories.push(newCategory);
+      } else {
+        createdCategories.push(existing);
       }
-    }catch (err) {
-      console.error("ERRO! ao criar as categorias", err)
+    } catch (err) {
+      console.error("ERRO! ao criar as categorias", err);
     }
-
-
-
   }
-  console.log('TODAS as categorias inicializadas')
-  return createdCategories
-}
+  ("TODAS as categorias inicializadas");
+  return createdCategories;
+};

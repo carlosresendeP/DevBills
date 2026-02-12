@@ -1,10 +1,8 @@
-
 import { initializeApp, type FirebaseOptions } from "firebase/app";
-import { getAuth, GoogleAuthProvider} from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-
-
-const firebaseConfig:FirebaseOptions = {
+const firebaseConfig: FirebaseOptions = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
@@ -14,8 +12,10 @@ const firebaseConfig:FirebaseOptions = {
 };
 
 // Initialize Firebase
+// Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
-const googleAuthProvider = new GoogleAuthProvider
+const db = getFirestore(firebaseApp);
+const googleAuthProvider = new GoogleAuthProvider();
 
-export {firebaseApp, firebaseAuth, googleAuthProvider}
+export { firebaseApp, firebaseAuth, db, googleAuthProvider };

@@ -5,7 +5,10 @@ import { useEffect, useState, type ChangeEvent } from "react";
 import Input from "../components/Input";
 import Card from "../components/Card";
 import { TransactionType, type Transaction } from "../types/transactions";
-import { deleteTransaction, getTransaction } from "../services/transactionService";
+import {
+  deleteTransaction,
+  getTransaction,
+} from "../services/transactionService";
 import Button from "../components/Button";
 import { formatCurrency, formatDate } from "../utils/formatter";
 import { toast } from "react-toastify";
@@ -18,7 +21,9 @@ const Transactions = () => {
   const [loading, setloading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
+  const [filteredTransactions, setFilteredTransactions] = useState<
+    Transaction[]
+  >([]);
   const [deletingId, setDeletingId] = useState<string | null>("");
   const [searchText, setSearchText] = useState<string>("");
 
@@ -29,8 +34,7 @@ const Transactions = () => {
 
       const data = await getTransaction({ month, year });
       setTransactions(data);
-      setFilteredTransactions(data)
-      console.log(data);
+      setFilteredTransactions(data);
     } catch (err) {
       console.error(err);
       setError("Erro ao carregar transações.Tenete novamente.");
@@ -52,14 +56,15 @@ const Transactions = () => {
       setDeletingId(id);
       await deleteTransaction(id);
       toast.success("Transação excluída com sucesso.");
-      setFilteredTransactions((prev) => prev.filter((transaction) => transaction.id !== id));
+      setFilteredTransactions((prev) =>
+        prev.filter((transaction) => transaction.id !== id),
+      );
     } catch (err) {
       console.error(err);
       toast.error("Erro ao excluir transação.Tente novamente.");
     } finally {
       setloading(false);
-      setDeletingId("")
-
+      setDeletingId("");
     }
   };
 
@@ -69,11 +74,15 @@ const Transactions = () => {
     }
   };
 
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>):void =>{
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchText(event.target.value);
     setFilteredTransactions(
-      transactions.filter( (transaction) => transaction.description
-      .toUpperCase().includes(event.target.value.toUpperCase())));
+      transactions.filter((transaction) =>
+        transaction.description
+          .toUpperCase()
+          .includes(event.target.value.toUpperCase()),
+      ),
+    );
   };
 
   return (
@@ -216,9 +225,13 @@ const Transactions = () => {
                       <div className="flex items-center">
                         <div
                           className="w-2 h-2 rounded-full mr-2"
-                          style={{ backgroundColor: transaction.category.color }}
+                          style={{
+                            backgroundColor: transaction.category.color,
+                          }}
                         ></div>
-                        <span className="text-sm  text-gray-400">{transaction.category.name}</span>
+                        <span className="text-sm  text-gray-400">
+                          {transaction.category.name}
+                        </span>
                       </div>
                     </td>
 

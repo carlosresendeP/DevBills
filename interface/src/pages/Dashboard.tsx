@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 //import { api } from "../services/api";
 import MonthYearSelect from "../components/MonthYearSelect";
-import { getTransactionMonthly, getTransactionSummary } from "../services/transactionService";
+import {
+  getTransactionMonthly,
+  getTransactionSummary,
+} from "../services/transactionService";
 import type { MonthlyItem, TrasactionSummary } from "../types/transactions";
 import Card from "../components/Card";
 import { ArrowUp, Calendar, TrendingUp, Wallet } from "lucide-react";
@@ -46,25 +49,23 @@ const Dashboard = () => {
       const response = await getTransactionSummary(month, year);
 
       setSummary(response);
-
     }
     loadTransactionsSummary();
   }, [month, year]);
-  
 
   useEffect(() => {
     async function loadTransactionsMonthly() {
       const response = await getTransactionMonthly(month, year, 4);
 
-
-
       setMonthlyItemData(response?.history || []);
-      console.log(response.history);
     }
     loadTransactionsMonthly();
   }, [month, year]);
 
-  const renderPieChartLabel = ({ categoryName, percent }: ChartLabelProps): string => {
+  const renderPieChartLabel = ({
+    categoryName,
+    percent,
+  }: ChartLabelProps): string => {
     return `${categoryName}: ${(percent * 100).toFixed(1)}%`;
   };
   const FormatToolTipValue = (value: number | string): string => {
@@ -100,7 +101,11 @@ const Dashboard = () => {
             {formatCurrency(summary.totalBalance)}
           </p>
         </Card>
-        <Card icon={<ArrowUp size={20} className="text-primary-500" />} title="Receitas" hover>
+        <Card
+          icon={<ArrowUp size={20} className="text-primary-500" />}
+          title="Receitas"
+          hover
+        >
           <p
             className={`text-2xl font-semibold mt-2 text-primary-500
               
@@ -109,7 +114,11 @@ const Dashboard = () => {
             {formatCurrency(summary.totalIncomes)}
           </p>
         </Card>
-        <Card icon={<Wallet size={20} className="text-red-500" />} title="Despesas" hover>
+        <Card
+          icon={<Wallet size={20} className="text-red-500" />}
+          title="Despesas"
+          hover
+        >
           <p
             className={`text-2xl font-semibold mt-2 text-red-600
               `}
@@ -132,10 +141,10 @@ const Dashboard = () => {
               <ResponsiveContainer>
                 <PieChart>
                   <Pie
-                    data={summary.expensesByCategory.map(item => ({
+                    data={summary.expensesByCategory.map((item) => ({
                       ...item,
                       name: item.categoryName,
-                      value: item.amount
+                      value: item.amount,
                     }))}
                     cx="50%"
                     cy="50%"
@@ -146,9 +155,11 @@ const Dashboard = () => {
                     dataKey="amount"
                     nameKey="categoryName"
                   >
-
                     {summary.expensesByCategory.map((entry) => (
-                      <Cell key={entry.categoryId} fill={entry.categoryColor}></Cell>
+                      <Cell
+                        key={entry.categoryId}
+                        fill={entry.categoryColor}
+                      ></Cell>
                     ))}
                   </Pie>
                   <Tooltip formatter={FormatToolTipValue} />
@@ -163,10 +174,8 @@ const Dashboard = () => {
           )}
         </Card>
 
-
-
         {/*2*/}
-        
+
         <Card
           icon={<Calendar size={20} className="text-primary-500" />}
           title="Histórico Mensal"
@@ -181,13 +190,15 @@ const Dashboard = () => {
                     left: 40,
                   }}
                 >
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,225,0.1)" />
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="rgba(255,255,225,0.1)"
+                  />
                   <XAxis
                     dataKey="name"
                     stroke="#91a3b8"
                     tick={{ style: { textTransform: "capitalize" } }}
                   />{" "}
-
                   <YAxis
                     stroke="#91a3b8"
                     tickFormatter={formatCurrency}
@@ -195,8 +206,11 @@ const Dashboard = () => {
                   />
                   <Tooltip
                     formatter={formatCurrency}
-                    contentStyle={{ backgroundColor: "#1a1a1a", borderColor: "#2a2a2a" }}
-                    labelStyle={{color: "#f8f8f8"}}
+                    contentStyle={{
+                      backgroundColor: "#1a1a1a",
+                      borderColor: "#2a2a2a",
+                    }}
+                    labelStyle={{ color: "#f8f8f8" }}
                   />
                   <Legend />
                   <Bar dataKey="EXPENSES" fill="#ff6384" name="Despesas" />
@@ -209,7 +223,7 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-        </Card> 
+        </Card>
       </div>
     </div>
   );

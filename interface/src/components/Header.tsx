@@ -17,6 +17,7 @@ export const Header = () => {
   const navLinks: NavLink[] = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Transações", path: "/transacoes" },
+    { name: "Configurações", path: "/configuracoes" },
   ];
 
   const handleSignOut = async () => {
@@ -32,6 +33,14 @@ export const Header = () => {
     /*!!  transforma o valor em booleano*/
   }
   const isAuthenticated: boolean = !!authState.user;
+
+  const formatDisplayName = (name: string | null | undefined) => {
+    if (!name) return "";
+    const names = name.split(" ");
+    return names.length > 1
+      ? `${names[0]} ${names[names.length - 1]}`
+      : names[0];
+  };
 
   const renderAvatar = () => {
     if (!authState.user) return null;
@@ -63,7 +72,7 @@ export const Header = () => {
             className="text-xl font-bold text-gray-100 flex items-center gap-2"
           >
             <Activity className="text-primary-500 w-6 h-6" />
-            ContaZero
+            DevBills
           </Link>
 
           {/*menu desktop*/}
@@ -92,7 +101,7 @@ export const Header = () => {
                 <div className="flex items-center space-x-2">
                   {renderAvatar()}
                   <span className="text-gray-300 text-sm font-medium">
-                    {authState.user?.displayName}
+                    {formatDisplayName(authState.user?.displayName)}
                   </span>
                 </div>
 

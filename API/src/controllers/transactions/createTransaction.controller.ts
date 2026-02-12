@@ -1,66 +1,63 @@
-import type { FastifyReply, FastifyRequest } from "fastify"
+import type { FastifyReply, FastifyRequest } from "fastify";
 import prisma from "../../config/prima";
-import {createTransactionSchema } from "../../schemas/transaction.schema"
+import { createTransactionSchema } from "../../schemas/transaction.schema";
 
+const createTrasaction = async (
+  request: FastifyRequest,
+  reply: FastifyReply,
+): Promise<void> => {
+  const userId = request.userId;
 
+  if (!userId) {
+    reply.status(401).send({ error: "usuario nao autenticado" });
+    return;
+  }
 
+  //validacao
+  const result = createTransactionSchema.safeParse(request.body)(
+    // safeParse retorna um objeto com sucesso ou erro
+    result,
+  );
 
-const createTrasaction = async(request: FastifyRequest, reply:FastifyReply): Promise<void> =>{
+  if (!result.success) {
+    const errorMessage = result.error.errors[0].message || "Validacao inválida";
 
-    const userId = request.userId;
+    reply.status(400).send({ error: errorMessage });
+    return;
+  }
 
-    if (!userId){
-        reply.status(401).send({error: 'usuario nao autenticado'})
-        return;
+  const transaction = result.data;
+
+  try {
+    const category = await prisma.category.findFirst({
+      where: {
+        id: transaction.categoryId,
+        type: transaction.type,
+      },
+    });
+    if (!category) {
+      reply.status(400).send({ error: "Categoria inválida" });
+      return;
     }
 
-    //validacao
-    const result = createTransactionSchema.safeParse(request.body) // safeParse retorna um objeto com sucesso ou erro
-    console.log(result)
+    const parseDate = new Date(transaction.date);
 
-    if (!result.success) {
-        const errorMessage = result.error.errors[0].message || "Validacao inválida";
+    const newTransaction = await prisma.transaction.create({
+      data: {
+        ...transaction,
+        userId,
+        date: parseDate,
+      },
+      include: {
+        category: true, // Inclui a categoria relacionada
+      },
+    });
 
-        reply.status(400).send({ error: errorMessage });
-        return;
-    }
+    reply.status(201).send(newTransaction);
+  } catch (error) {
+    request.log.error("Erro ao criar transação:", error);
+    reply.status(500).send({ error: "Erro ao criar transação" });
+  }
+};
 
-    const transaction = result.data;
-
-    try{
-        const category = await prisma.category.findFirst({
-            where: {
-                id: transaction.categoryId,
-                type: transaction.type,
-            },
-        });
-        if (!category) {
-            reply.status(400).send({ error: "Categoria inválida" });
-            return;
-        }
-
-        const parseDate = new Date(transaction.date);
-
-
-        const newTransaction = await prisma.transaction.create({
-            data:{
-                ...transaction,
-                userId,
-                date: parseDate,
-
-            },
-            include:{
-                category: true, // Inclui a categoria relacionada
-            },
-        });
-
-        reply.status(201).send(newTransaction);
-
-    }catch(error){
-        request.log.error("Erro ao criar transação:", error);
-        reply.status(500).send({ error: "Erro ao criar transação" });
-    }
-
-}
-
-export default createTrasaction
+export default createTrasaction;

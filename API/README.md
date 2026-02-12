@@ -1,4 +1,4 @@
-# 💰 ContaZero API
+# 💰 DevBills API
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Fastify](https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white)
@@ -12,7 +12,7 @@
 
 ## 📖 Sobre o Projeto
 
-**ContaZero API** é uma aplicação backend robusta desenvolvida em **TypeScript** que permite aos usuários gerenciar suas finanças pessoais de forma segura e eficiente. A API oferece funcionalidades completas para:
+**DevBills API** é uma aplicação backend robusta desenvolvida em **TypeScript** que permite aos usuários gerenciar suas finanças pessoais de forma segura e eficiente. A API oferece funcionalidades completas para:
 
 ✅ Criar, listar, filtrar e deletar transações financeiras  
 ✅ Categorizar receitas e despesas  
@@ -331,7 +331,7 @@ curl -H "Authorization: Bearer SEU_TOKEN" \
 | `PORT`                  | Porta do servidor            | `3001`                  |
 | `NODE_ENV`              | Ambiente de execução         | `dev`, `test`, `prod`   |
 | `DATABASE_URL`          | Connection string do MongoDB | `mongodb+srv://...`     |
-| `FIREBASE_PROJECT_ID`   | ID do projeto Firebase       | `ContaZero-123`         |
+| `FIREBASE_PROJECT_ID`   | ID do projeto Firebase       | `DevBills-123`          |
 | `FIREBASE_PRIVATE_KEY`  | Chave privada Firebase       | `-----BEGIN...`         |
 | `FIREBASE_CLIENT_EMAIL` | Email do service account     | `firebase-adminsdk@...` |
 
@@ -388,7 +388,7 @@ Este projeto está sob a licença **ISC**.
 
 ## 👨‍💻 Autor
 
-**ContaZero Project**
+**DevBills Project**
 
 - Projeto educacional de API de gestão financeira
 - Desenvolvido com TypeScript, Fastify e Prisma
@@ -419,6 +419,6 @@ Para dúvidas ou problemas:
 
 **Feito com ❤️ e TypeScript**
 
-[⬆ Voltar ao topo](#-ContaZero-api)
+[⬆ Voltar ao topo](#-DevBills-api)
 
 </div>

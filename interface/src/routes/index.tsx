@@ -8,6 +8,7 @@ import { PrivateRoutes } from "./PrivateRoutes";
 import Transactions from "../pages/Transactions";
 import TransactionsForm from "../pages/TransactionsForm";
 import { ToastContainer, type ToastContainerProps } from "react-toastify";
+import Configurations from "../pages/Configurations";
 
 const AppRoutes = () => {
   const toastConfig: ToastContainerProps = {
@@ -33,6 +34,7 @@ const AppRoutes = () => {
           <Route element={<PrivateRoutes />}>
             <Route element={<AppLayout />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/configuracoes" element={<Configurations />} />
               <Route path="/transacoes" element={<Transactions />} />
               <Route path="/transacoes/nova" element={<TransactionsForm />} />
             </Route>

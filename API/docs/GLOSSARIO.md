@@ -1,4 +1,4 @@
-# 📖 Glossário de Termos Técnicos - ContaZero API
+# 📖 Glossário de Termos Técnicos - DevBills API
 
 > Explicação de termos técnicos, conceitos e tecnologias usadas no projeto.
 
@@ -8,7 +8,7 @@
 
 ### API (Application Programming Interface)
 
-Interface que permite a comunicação entre diferentes sistemas de software. No ContaZero, é uma API REST que permite ao frontend interagir com o backend.
+Interface que permite a comunicação entre diferentes sistemas de software. No DevBills, é uma API REST que permite ao frontend interagir com o backend.
 
 **Exemplo:** Quando o app móvel quer listar transações, ele faz uma requisição HTTP para a API.
 
@@ -580,7 +580,7 @@ Função passada como argumento para ser executada depois.
 
 ```typescript
 array.forEach((item) => {
-  console.log(item); // callback executado para cada item
+  item; // callback executado para cada item
 });
 ```
 
@@ -694,7 +694,7 @@ Request → Middleware 1 → Middleware 2 → Handler
 
 ---
 
-## 📖 Termos do Domínio (ContaZero)
+## 📖 Termos do Domínio (DevBills)
 
 ### Transaction (Transação)
 
@@ -784,12 +784,12 @@ npx tsx watch src/server.ts  # Executa com hot reload
 
 ## 🔍 Debugging
 
-### Console.log
+###
 
 Imprime valores no terminal para debug.
 
 ```typescript
-console.log("Valor:", variavel);
+("Valor:", variavel);
 console.error("Erro:", erro);
 ```
 
@@ -903,6 +903,6 @@ Separar código em camadas com responsabilidades distintas.
 
 ---
 
-**Glossário Técnico - ContaZero API**  
+**Glossário Técnico - DevBills API**  
 **Versão:** 1.0.0  
 **Data:** 26/10/2025

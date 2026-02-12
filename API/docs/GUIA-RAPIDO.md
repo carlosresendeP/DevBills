@@ -1,4 +1,4 @@
-# 🚀 Guia Rápido - ContaZero API
+# 🚀 Guia Rápido - DevBills API
 
 ## ⚡ Início Rápido
 

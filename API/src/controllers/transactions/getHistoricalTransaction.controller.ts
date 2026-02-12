@@ -5,7 +5,6 @@ import type { GetHistoricalTransactionQuery } from "../../schemas/transaction.sc
 import "dayjs/locale/pt-br";
 import utc from "dayjs/plugin/utc";
 
-
 dayjs.locale("pt-br");
 dayjs.extend(utc);
 
@@ -24,7 +23,8 @@ export const getHistoricalTransaction = async (
 
   const baseDate = new Date(year, month - 1, 1); //mes começa do 0, entao subtrai 1
 
-  const startDate = dayjs.utc(baseDate)
+  const startDate = dayjs
+    .utc(baseDate)
     .subtract(months - 1, "month")
     .startOf("month")
     .toDate(); //subtrai os meses para pegar o inicio do periodo
@@ -46,7 +46,7 @@ export const getHistoricalTransaction = async (
       },
     });
 
-    console.log(transaction);
+    transaction;
 
     const monthlyData = Array.from({ length: months }, (_, i) => {
       const date = dayjs.utc(baseDate).subtract(months - 1 - i, "month");
@@ -74,7 +74,7 @@ export const getHistoricalTransaction = async (
     });
     reply.send({ history: monthlyData });
   } catch (error) {
-      request.log.error("Erro ao buscar histórico de transações", error);
-      reply.status(500).send({ error: "Erro ao buscar histórico de transações" });
+    request.log.error("Erro ao buscar histórico de transações", error);
+    reply.status(500).send({ error: "Erro ao buscar histórico de transações" });
   }
 };

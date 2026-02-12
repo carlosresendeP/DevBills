@@ -1,4 +1,4 @@
-# 🏗️ Arquitetura da ContaZero API
+# 🏗️ Arquitetura da DevBills API
 
 ## 📐 Diagrama de Arquitetura
 

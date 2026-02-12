@@ -50,7 +50,7 @@ const Home = () => {
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 Gerencie suas finanças com o{" "}
-                <span className="text-primary-500">ContaZero</span>
+                <span className="text-primary-500">DevBills</span>
               </h1>
               <p className="text-lg text-white mb-8">
                 Uma plataforma simples e eficiente para controlar suas despesas
@@ -73,7 +73,7 @@ const Home = () => {
           <div className="container-app">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold text-white mb-4">
-                Recursos do ContaZero
+                Recursos do DevBills
               </h2>
               <p className="text-lg text-white max-w-2xl mx-auto">
                 Nossa plataforma oferece tudo o que você precisa para manter
@@ -107,8 +107,8 @@ const Home = () => {
               Pronto para organizar suas finanças?
             </h2>
             <p className="text-white text-opacity-90 max-w-2xl mx-auto mb-8">
-              Comece a usar o ContaZero hoje mesmo e tenha o controle total
-              sobre seu dinheiro. É gratuito e fácil de usar!
+              Comece a usar o DevBills hoje mesmo e tenha o controle total sobre
+              seu dinheiro. É gratuito e fácil de usar!
             </p>
             <Button
               className="mx-auto px-6 py-3"

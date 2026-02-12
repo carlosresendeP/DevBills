@@ -1,4 +1,7 @@
-import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from "axios";
+import axios, {
+  type AxiosInstance,
+  type InternalAxiosRequestConfig,
+} from "axios";
 import { firebaseAuth } from "../config/firebase";
 
 export const api: AxiosInstance = axios.create({
@@ -7,9 +10,11 @@ export const api: AxiosInstance = axios.create({
 });
 
 api.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig> => {
+  async (
+    config: InternalAxiosRequestConfig,
+  ): Promise<InternalAxiosRequestConfig> => {
     const user = firebaseAuth.currentUser;
-    //console.log( user);
+    //( user);
 
     if (user) {
       try {

@@ -5,7 +5,7 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import prisma from "../../config/prima";
 import type { getTransactionSummaryQuery } from "../../schemas/transaction.schema";
 import type { CategorySummary } from "../../types/category.types";
-import type{ TrasactionSummary } from "../../types/transactions.types";
+import type { TrasactionSummary } from "../../types/transactions.types";
 
 dayjs.extend(utc); //plugin para manipular datas em UTC
 
@@ -71,19 +71,25 @@ export const getTransactionsSummary = async (
         totalIncomes += transaction.amount; //soma o valor da transação de TODAS as receitas
       }
     }
-    
-    console.log( Array.from(groupedExpenses.values()))
 
-    const summary: TrasactionSummary ={
+    Array.from(groupedExpenses.values());
+
+    const summary: TrasactionSummary = {
       totalExpenses,
       totalIncomes,
-      totalBalance: Number.parseFloat((totalIncomes - totalExpenses).toFixed(2)), //calcula o saldo total (receitas - despesas),
+      totalBalance: Number.parseFloat(
+        (totalIncomes - totalExpenses).toFixed(2),
+      ), //calcula o saldo total (receitas - despesas),
       //converte o Map em um array
-      expensesByCategory: Array.from(groupedExpenses.values()).map( (entry)=>({
-        ...entry, //espalha os valores do objeto existente
-        percentage: Number.parseFloat(( entry.amount / totalExpenses * 100).toFixed(2))
-      })).sort( (a, b)=> b.amount - a.amount), //ordena por valor da despesa, do maior para o menor(sort = função de comparação)
-    }
+      expensesByCategory: Array.from(groupedExpenses.values())
+        .map((entry) => ({
+          ...entry, //espalha os valores do objeto existente
+          percentage: Number.parseFloat(
+            ((entry.amount / totalExpenses) * 100).toFixed(2),
+          ),
+        }))
+        .sort((a, b) => b.amount - a.amount), //ordena por valor da despesa, do maior para o menor(sort = função de comparação)
+    };
     reply.send(summary);
   } catch (error) {
     request.log.error("Erro ao buscar transações:", error);
