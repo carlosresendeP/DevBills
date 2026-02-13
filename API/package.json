@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx tsx watch src/server.ts",
     "build": "npx tsx build src/server.ts",
-    "start": "node server.js"
+    "start": "npx node src/server.js"
   },
   "keywords": [],
   "author": "",
