@@ -14,10 +14,7 @@ const createTrasaction = async (
   }
 
   //validacao
-  const result = createTransactionSchema.safeParse(request.body)(
-    // safeParse retorna um objeto com sucesso ou erro
-    result,
-  );
+  const result = createTransactionSchema.safeParse(request.body);
 
   if (!result.success) {
     const errorMessage = result.error.errors[0].message || "Validacao inválida";
