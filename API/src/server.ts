@@ -4,23 +4,23 @@ import { inializeGlobalCategories } from "./services/globalCategories.service";
 import { env } from "./config/env";
 import initalizeFirebaseAdmin from "./config/firebase";
 
-const PORT = env.PORT;
-
-initalizeFirebaseAdmin();
-
 const startServer = async () => {
   try {
-    // Conectar ao banco de dados
     await prismaConnect();
-    //iniciarlizar as cartegorias
     await inializeGlobalCategories();
+    initalizeFirebaseAdmin();
 
-    // Iniciar o servidor Fastify
-    await app
-      .listen({ port: PORT })
-      .then(() => `Servidor está ativo na porta http://localhost:${PORT}`);
+    await app.listen({
+      port: Number(process.env.PORT) || 3000,
+      host: "0.0.0.0",
+    });
+
+    console.log(
+      `🚀 Servidor rodando na porta ${process.env.PORT || 3000}`
+    );
   } catch (error) {
     console.error("❌ Falha ao iniciar o servidor:", error);
+    process.exit(1);
   }
 };
 
