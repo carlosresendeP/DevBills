@@ -5,9 +5,9 @@ Bem-vindo ao **DevBills**, uma aplicação completa para gestão financeira dese
 ## 📸 Screenshots
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-  <img src="./interface/public/images/Desk-1.png" style="width: 200px;" alt="Screenshot 1" />
-  <img src="./interface/public/images/Desk-2.png" style="width: 200px;" alt="Screenshot 2" />
-  <img src="./interface/public/images/Desk-3.png" style="width: 200px;" alt="Screenshot 3" />
+  <img src="./interface/public/images/Desk-1.png" style="width: 500px;" alt="Screenshot 1" />
+  <img src="./interface/public/images/Desk-2.png" style="width: 500px;" alt="Screenshot 2" />
+  <img src="./interface/public/images/Desk-3.png" style="width: 500px;" alt="Screenshot 3" />
 </div>
 
 ## 🚀 Tecnologias Utilizadas
@@ -63,6 +63,10 @@ Siga os passos abaixo para rodar o projeto em sua máquina local.
    ```bash
    npm install
    ```
+   ou
+   ```bash
+   yarn install
+   ```
 
 3. Configure as variáveis de ambiente. Crie um arquivo `.env` na raiz da pasta `API` com o seguinte conteúdo (ajuste com suas credenciais):
 
@@ -82,10 +86,18 @@ Siga os passos abaixo para rodar o projeto em sua máquina local.
    ```bash
    npx prisma generate
    ```
+   ou
+   ```bash
+   yarn prisma generate
+   ```
 
 5. Inicie o servidor de desenvolvimento:
    ```bash
    npm run dev
+   ```
+   ou
+   ```bash
+   yarn dev
    ```
 
 ### Configurando o Frontend (Interface)
@@ -100,6 +112,10 @@ Siga os passos abaixo para rodar o projeto em sua máquina local.
 
    ```bash
    npm install
+   ```
+   ou
+   ```bash
+   yarn install
    ```
 
 3. Configure as variáveis de ambiente. Crie um arquivo `.env` na raiz da pasta `interface` com o seguinte conteúdo (do seu projeto Firebase):
@@ -117,6 +133,10 @@ Siga os passos abaixo para rodar o projeto em sua máquina local.
    ```bash
    npm run dev
    ```
+   ou
+   ```bash
+   yarn dev
+   ```
 
 ## ✨ Funcionalidades
 
@@ -131,16 +151,16 @@ Siga os passos abaixo para rodar o projeto em sua máquina local.
 
 ### API
 
-- `npm run dev`: Inicia o servidor em modo de desenvolvimento com watch.
-- `npm run build`: Compila o código TypeScript.
-- `npm start`: Inicia o servidor compilado.
+- `yarn dev`: Inicia o servidor em modo de desenvolvimento com watch.
+- `yarn build`: Compila o código TypeScript.
+- `yarn start`: Inicia o servidor compilado.
 
 ### Interface
 
-- `npm run dev`: Inicia o servidor de desenvolvimento Vite.
-- `npm run build`: Compila a aplicação para produção.
-- `npm run lint`: Executa o linting no código.
+- `yarn dev`: Inicia o servidor de desenvolvimento Vite.
+- `yarn build`: Compila a aplicação para produção.
+- `yarn lint`: Executa o linting no código.
 
 ---
 
-Desenvolvido com ❤️ como parte dos estudos no curso DevBills.
+Desenvolvido por Carlos Paula
