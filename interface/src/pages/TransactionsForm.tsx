@@ -93,7 +93,7 @@ const TransactionsForm = () => {
         categoryId: formData.categoryId,
         type: formData.type,
         date: `${formData.date}T12:00:00.000Z`,
-      }(transactionData);
+      }
 
       await createTransaction(transactionData);
       toast.success("Transação criada com sucesso");
