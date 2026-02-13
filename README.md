@@ -4,10 +4,10 @@ Bem-vindo ao **DevBills**, uma aplicação completa para gestão financeira dese
 
 ## 📸 Screenshots
 
-<div style="display: flex; gap: 10px; flex-wrap: wrap;">
-  <img src="./interface/public/images/Desk-1.png" style="width: 500px;" alt="Screenshot 1" />
-  <img src="./interface/public/images/Desk-2.png" style="width: 500px;" alt="Screenshot 2" />
-  <img src="./interface/public/images/Desk-3.png" style="width: 500px;" alt="Screenshot 3" />
+<div style="display: flex; gap: 4px;">
+  <img src="./interface/public/images/Desk-1.png" style="width: 250px;" alt="Screenshot 1" />
+  <img src="./interface/public/images/Desk-2.png" style="width: 250px;" alt="Screenshot 2" />
+  <img src="./interface/public/images/Desk-3.png" style="width: 250px;" alt="Screenshot 3" />
 </div>
 
 ## 🚀 Tecnologias Utilizadas
